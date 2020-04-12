@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gomeshud.wsmongo.domain.User;
+import com.gomeshud.wsmongo.dto.UserDTO;
 import com.gomeshud.wsmongo.repository.UserRepository;
 import com.gomeshud.wsmongo.services.exception.ObjectNotFoundException;
 
@@ -23,5 +24,14 @@ public class UserService {
 	public User findById(String id) {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+	
+	
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 }
